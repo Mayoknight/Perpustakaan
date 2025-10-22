@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  mysql_perpus:
+    image: mysql:8.0
+    container_name: mysql_perpus
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: perpustakaan
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_perpus_data:/var/lib/mysql
+
+  phpmyadmin_perpus:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_perpus
+    restart: always
+    environment:
+      PMA_HOST: mysql_perpus
+      PMA_USER: root
+      PMA_PASSWORD: ""
+    ports:
+      - "8081:80" # phpmyadmin untuk project ini diakses lewat localhost:8081
+
+volumes:
+  mysql_perpus_data:
